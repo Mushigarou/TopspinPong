@@ -17,7 +17,8 @@ import {
 } from "@/components/SettingsForm/form-components/formContext";
 import { toast } from "react-toastify";
 import { notificationStyle } from "@/components/ToastProvider";
-import GameTab from "@/components/SettingsForm/Game-tab/GameTab";
+import GameTab from "@/components/SettingsForm/GameTab/gameTab";
+// import GameTab from "@/components/SettingsForm/Game-tab/gametab";
 
 async function getInitialData({
   setValuesToPost,
@@ -46,6 +47,10 @@ async function getInitialData({
       repeat_password: "",
       is_two_fact: false,
       two_fact_secret: "",
+      table_color: "#ff0000",
+      ball_color: "#00ff00",
+      paddle_color: "#0000ff",
+      table_position: "prespective",
     });
     setAccountValues({
       first_name: "Mushigarou",
@@ -59,6 +64,10 @@ async function getInitialData({
       repeat_password: "",
       is_two_fact: false,
       two_fact_secret: "",
+      table_color: "#ff0000",
+      ball_color: "#00ff00",
+      paddle_color: "#0000ff",
+      table_position: "prespective",
     });
   } catch (error) {
     console.error("Unexpected error : ", error);
@@ -68,10 +77,10 @@ async function getInitialData({
 /* Submits the form */
 const postFormData = async ({
   valuesToPost,
-  isChanged,
+  isFormChanged,
 }: {
   valuesToPost: SettingsProps["valuesToPost"];
-  isChanged: MutableRefObject<boolean>;
+  isFormChanged: MutableRefObject<boolean>;
 }) => {
   try {
     const validateEmail: (email: string) => boolean = (email) => {
@@ -104,8 +113,8 @@ const postFormData = async ({
       return isValid;
     };
 
-    if (isChanged.current && validateInput()) {
-      isChanged.current = false;
+    if (isFormChanged.current && validateInput()) {
+      isFormChanged.current = false;
       const access = Cookies.get("access");
 
       console.log("------> JSON To Post", JSON.stringify(valuesToPost));
@@ -136,7 +145,7 @@ function SettingsPage() {
     SettingsProps["accountValues"]
   >({});
   const [tab, setTab] = useState<string>("account");
-  const isChanged = useRef<boolean>(false);
+  const isFormChanged = useRef<boolean>(false);
 
   /* Updates a specific field of the input */
   const updateField = (key: string, value: string | boolean) => {
@@ -169,7 +178,7 @@ function SettingsPage() {
       }
       if (compareDictValues(accountValues, valuesToPost)) {
         setValuesToPost(newValues);
-        isChanged.current = true;
+        isFormChanged.current = true;
       }
     };
 
@@ -188,15 +197,16 @@ function SettingsPage() {
 
   return (
     <div
-      className={` ${styles.wrapper} container-fluid vh-100  -warning p-0 m-0 `}
+      className={` ${styles.wrapper} container-fluid vh-100  -warning p-0 m-0`}
     >
       <div className="row h-100 p-0 m-0">
-        <div className="row p-0 m-0 mt-5">
+        <section className="row p-0 m-0 mt-5">
           <div className="col">
             <h1 className="valo-font">SETTINGS</h1>
           </div>
-        </div>
-        <div
+        </section>
+
+        <main
           className={`${styles.main_container} row p-0 m-0 h-75 justify-content-center align-items-start`}
         >
           <form
@@ -236,9 +246,11 @@ function SettingsPage() {
               <div
                 className={`${styles.content_container} row  p-0 m-0  justify-content-center align-items-center`}
               >
-                {(tab === "account" && <AccountTab />) ||
-                  (tab === "security" && <SecurityTab />) ||
-                  (tab === "game" && <GameTab />)}
+                {
+                  (tab === "account" && <AccountTab />) ||
+                    (tab === "security" && <SecurityTab />)
+                  ||(tab === "game" && <GameTab />)
+                }
               </div>
             </FormContext.Provider>
           </form>
@@ -246,13 +258,13 @@ function SettingsPage() {
             <button
               className={`valo-font col-8 col-md-6 ${styles.create_button}`}
               onClick={() => {
-                postFormData({ valuesToPost, isChanged });
+                postFormData({ valuesToPost, isFormChanged });
               }}
             >
               SAVE
             </button>
           </div>
-        </div>
+        </main>
       </div>
     </div>
   );

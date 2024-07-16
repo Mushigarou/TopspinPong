@@ -1,4 +1,4 @@
-# ft_transcendence ⏳
+# TopspinPong
 
 - Play Ping Pong matches and tournaments, and chat live with your friends!
 
@@ -8,7 +8,7 @@
 - [Usage](#usage)
 - [Merise](#merise)
 - [Unified Modeling Language](#unified-modeling-language)
-- [Supported Features](#supported-features)
+- [Features](#features)
 - [Ressources](#ressources)
 
 # Technology Stack
@@ -59,7 +59,7 @@ $> make data-generator
 
 ### Logical Data Model
 
-![Logical Data Model](https://github.com/zakarm/ft_transcendence/blob/master/docs/ft_transcendence.pgerd.png)
+![Logical Data Model](docs/data_model.pgerd.png)
 
 
 [⬆️ Back To Features](#supported-features)
@@ -70,8 +70,8 @@ $> make data-generator
 
 ### Use Case
 
-![Use Case](https://github.com/zakarm/ft_transcendence/blob/master/docs/use_case.drawio.png)
-<!-- <img src="https://github.com/zakarm/ft_transcendence/blob/master/docs/use_case.drawio.png"> -->
+![Use Case](docs/use_case.drawio.png)
+<!-- <img src="docs/use_case.drawio.png"> -->
 
 - **Sign Up**: This use case allows a new user to create an account on the website. Users will provide necessary information such as username, email, and password to register themselves.
 - **Sign In**: This use case enables registered users to authenticate themselves into the system by providing their username/email and password.
@@ -91,198 +91,22 @@ $> make data-generator
 ---
 
 
-# Supported Features
+# Features
 
-| Feature                                                           | Module                                                                                                                                                | Major/Minor | Supported | Progress |
-|-------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|-------------|-----------|----------|
-| **[Mandatory Part](#mandatory-part)**                             |                                                                                                                                                       |             |           |          |
-|                                                                   | [Minimal technical requirement](#minimal-technical-requirement)                                                                                       |             | ✅        | Done     |
-|                                                                   | [Game](#game)                                                                                                                                         |             | ✅        | Done     |
-|                                                                   | [Security Concerns and Recommendations](#security-concerns-and-recommendations)                                                                       |             | ✅        | Done     |
-| **[Web](#web)**                                                   |                                                                                                                                                       |             |           |          |
-|                                                                   | [Use a Framework as backend.](#major-module-use-a-framework-as-backend)                                                                               | Major       | ✅        | Done     |
-|                                                                   | [Use a database for the backend.](#minor-module-use-a-database-for-the-backend)                                                                       | Minor       | ✅        | Done     |
-| **[User Management](#user-management)**                           |                                                                                                                                                       |             |           |          |
-|                                                                   | [Standard user management, authentication, users across tournaments.](#major-module-standard-user-management-authentication-users-across-tournaments) | Major       | ✅        | Done     |
-|                                                                   | [Implementing a remote authentication.](#major-module-implementing-a-remote-authentication)                                                           | Major       | ✅        | Done     |
-| **[Gameplay and user experience](#gameplay-and-user-experience)** |                                                                                                                                                       |             |           |          |
-|                                                                   | [Remote players](#major-module-remote-players)                                                                                                        | Major       | ✅        | Done     |
-|                                                                   | [Game Customization Options](#minor-module-game-customization-options)                                                                                | Minor       | ✅        | Done     |
-|                                                                   | [Live chat](#major-module-live-chat)                                                                                                                  | Major       | ✅        | Done     |
-| **[AI-Algo](#ai-algo)**                                           |                                                                                                                                                       |             |           |          |
-|                                                                   | [User and Game Stats Dashboards](#minor-module-user-and-game-stats-dashboards)                                                                        | Minor       | ✅        | Done     |
-| **[Cybersecurity](#cybersecurity)**                               |                                                                                                                                                       |             |           |          |
-|                                                                   | [Implement Two-Factor Authentication (2FA) and JWT.](#cybersecurity)                                                                                  | Major       | ✅        | Done     |
-| **[Devops](#devops)**                                             |                                                                                                                                                       |             |           |          |
-|                                                                   | [Infrastructure Setup for Log Management.](#devops)                                                                                                   | Major       | ✅        | Done     |
-|                                                                   | [Monitoring system.](#devops)                                                                                                                         | Minor       | ✅        | Done     |
-| **[Graphics](#graphics)**                                         |                                                                                                                                                       |             |           |          |
-|                                                                   | [Use of advanced 3D techniques.](#major-module-use-of-advanced-3d-techniques)                                                                         | Major       | ✅        | Done     |
+| Area | What it does |
+|---|---|
+| **Game** | Live Pong in the browser, 3D graphics with Three.js/WebGL, custom game options, remote players over WebSockets |
+| **Tournaments** | Aliases per tournament, matchmaking and announcements for the next match |
+| **Users** | Sign-up and login, OAuth 2.0 single sign-on, avatars, friends and online status, profile stats and match history |
+| **Chat** | Direct messages, blocking, game invites from the chat, tournament notifications |
+| **Stats** | Dashboards with charts for each player and each game |
+| **Security** | Two-factor authentication (2FA), JWT, hashed passwords, input validation, HTTPS and WSS everywhere |
+| **Backend** | Django REST API with PostgreSQL |
+| **DevOps** | One-command start with Docker Compose, ELK stack for logs, Prometheus and Grafana for monitoring |
 
----
+The site is a single-page application: the browser's Back and Forward buttons work as expected.
 
-# Mandatory Part
-
-## Minimal technical requirement
-
-- Website must be a single-page application. use the Back and Forward buttons of the browser.
-- Compatible with the latest stable up-to-date version of Google Chrome.
-- No unhandled errors and no warnings when browsing the website.
-- Everything must be launched with a single command line (e.g docker-compose up --build)
-
-[⬆️ Back To Features](#supported-features)
-
-## Game
-
-| Requirement                                   | Description                                                                                        | Implementation                                  |
-|-----------------------------------------------|----------------------------------------------------------------------------------------------------|-------------------------------------------------|
-| Live Pong game                                | Users play Pong against each other directly on the website using the same keyboard.                | Stack: FrontEnd module                          |
-| Remote players module                         | Enhances gameplay by enabling players to compete against remote opponents.                         | Optional: Remote players module                 |
-| Tournament system                             | Allows players to compete in a tournament format, displaying matchups and player order clearly.    | Stack: Backend module                           |
-| Registration system                           | Players input aliases at the start of each tournament. Aliases reset for new tournaments.          | Stack: Backend module                           |
-| Standard User Management module               | Provides flexibility in managing user registration and aliases.                                    | Optional: Standard User Management module       |
-| Matchmaking system                            | Organizes matchups for participants and announces next fights.                                     | Stack: Backend module                           |
-| Adherence to rules                            | All players, including AI, must adhere to the same rules, including identical paddle speed.        | Stack: Backend module                           |
-| Frontend development                          | Develop game within default frontend constraints or utilize FrontEnd module.                       | Stack: FrontEnd module                          |
-| Override option with Graphics module          | Provides option to override default frontend with Graphics module for enhanced visual aesthetics.  | Optional: Graphics module                       |
-| Prohibition on third-party tools              | Prohibits use of libraries or frameworks that replace necessary functions. Justification required. | Strictly Prohibited                             |
-| Simplification with justified tools/resources | Recommended to use tools/resources for simplification, but they must be justified.                 | Allowed and recommended; justification required |
-
-[⬆️ Back To Features](#supported-features)
-
-## Security Concerns and Recommendations
-
-| Security Concern                      | Recommendation                                                                                                                                    |
-|---------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
-| Password storage                      | Hash passwords before storing them in the database. Use a strong password hashing algorithm.                                                      |
-| Protection against SQL injections/XSS | Implement measures to sanitize and validate user input to prevent SQL injections and Cross-Site Scripting (XSS).                                  |
-| HTTPS connection                      | Enable HTTPS connection for all aspects of the website. Utilize wss instead of ws for WebSocket connections.                                      |
-| Form and user input validation        | Implement validation for forms and any user input, either on the client-side within the base page or on the server-side if a backend is employed. |
-
-# Modules
-
-## Web
-
-### Major module: Use a Framework as backend
-
-1. **Framework**: Django
-   - **Constraints**: Utilize Django for backend development.
-
-### Minor module: Use a database for the backend
-
-1. **Database**: PostgreSQL
-   - **Constraints**: Utilize PostgreSQL for backend database instances. Ensures data consistency and compatibility.
-
-[⬆️ Back To Features](#supported-features)
-
-## User Management
-
-### Major Module: Standard user management, authentication, users across tournaments
-
-1. **Features**:
-   - Secure user subscription.
-   - Secure user login.
-   - Selection of unique display names for tournaments.
-   - User information update functionality.
-   - Avatar upload with default option.
-   - Friend addition and online status viewing.
-   - User profile stats display (e.g., wins and losses).
-   - Match History for 1v1 games with dates and details.
-
-[⬆️ Back To Features](#supported-features)
-
-### Major Module: Implementing a remote authentication
-
-1. **Authentication System**: OAuth 2.0 with 42
-   - **Objectives**:
-     - Integrate OAuth 2.0 authentication system for secure sign-in.
-     - Obtain necessary credentials and permissions from the authority.
-     - Implement user-friendly login and authorization flows adhering to best practices.
-     - Ensure secure exchange of authentication tokens and user information.
-
-[⬆️ Back To Features](#supported-features)
-
-## Gameplay and user experience
-
-### **Major Module: Remote Players**
-
-- **Description**: Allows two distant players to access the same website and play the same Pong game. Consider network issues like disconnection or lag for the best user experience.
-
-[⬆️ Back to top](#technology-stack)
-
-### **Minor Module: Game Customization Options**
-
-- **Description**: Provides customization options for all available games on the platform.
-- **Key Features**:
-  - Offer customization features like power-ups, attacks, or different maps.
-  - Allow users to choose a default version of the game for a simpler experience.
-  - Ensure customization options are available and applicable to all games.
-  - Implement user-friendly settings menus for adjusting game parameters.
-  - Maintain consistency in customization features across all games.
-
-[⬆️ Back To Features](#supported-features)
-
-### **Major Module: Live Chat**
-
-- **Description**: Implements a chat system for users with various functionalities.
-- **Key Features**:
-  - Allow users to send direct messages to other users.
-  - Enable user blocking to stop receiving messages from blocked accounts.
-  - Provide the ability to invite other users to play Pong through the chat interface.
-  - Integrate tournament system notifications for upcoming games.
-  - Allow access to other players' profiles through the chat interface.
-
-[⬆️ Back To Features](#supported-features)
-
-## AI-Algo
-
-### Minor module: User and Game Stats Dashboards
-
-- **Goal**: Introduce user-friendly dashboards displaying statistics for individual users and game sessions.
-- **Features**:
-  - Create separate dashboards for user and game session statistics.
-  - Implement intuitive and informative user interfaces.
-  - Utilize data visualization techniques such as charts and graphs.
-  - Allow users to access and explore their gaming history and performance metrics.
-  - Additional metrics can be added as deemed useful.
-
-## Cybersecurity
-
-| Module Type | Description                                                                                          | Key Features                                                                                                    |
-|-------------|------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
-| Major       | **Implement Two-Factor Authentication (2FA) and JWT**                                                | - Introduce Two-Factor Authentication (2FA) for enhanced security.                                              |
-|             |                                                                                                      | - Utilize JSON Web Tokens (JWT) for secure authentication and authorization.                                    |
-|             |                                                                                                      |  - Offer a user-friendly setup process for enabling 2FA.                                                        |
-
-[⬆️ Back To Features](#supported-features)
-
-## Devops
-
-| Module Type | Description                                                                            | Key Features                                                               |
-|-------------|----------------------------------------------------------------------------------------|----------------------------------------------------------------------------|
-| Major       | **Infrastructure Setup with ELK (Elasticsearch, Logstash, Kibana) for Log Management** | - Deploy Elasticsearch for efficient log data storage and indexing.        |
-|             |                                                                                        | - Configure Logstash to collect, process, and transform log data.          |
-|             |                                                                                        | - Set up Kibana for log data visualization and insights.                   |
-|             |                                                                                        | - Define data retention policies and implement security measures.          |
-| Minor       | **Monitoring System with Prometheus and Grafana**                                      | - Deploy Prometheus for monitoring and alerting.                           |
-|             |                                                                                        | - Configure Grafana for custom dashboards and visualizations.              |
-|             |                                                                                        | - Set up alerting rules and ensure proper data retention.                  |
-|             |                                                                                        | - Implement secure authentication and access control.                      |
-
-[⬆️ Back To Features](#supported-features)
-
-## Graphics
-
-### **Major Module: Use of advanced 3D techniques.**
-
-- **Objective**: Enhance the visual aspects of the Pong game using advanced 3D techniques.
-- **Key Features**:
-  - Implement advanced 3D graphics techniques to elevate the visual quality of the Pong game.
-  - Utilize ThreeJS/WebGL technology to create stunning visual effects.
-  - Enhance gameplay experience with visually engaging and captivating elements.
-  - Ensure compatibility and optimal performance by integrating ThreeJS/WebGL.
-
-[⬆️ Back To Features](#supported-features)
+[⬆️ Back to top](#index)
 
 ## Ressources
 

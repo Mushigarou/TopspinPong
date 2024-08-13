@@ -2,10 +2,10 @@
 
 const nextConfig = {
   compress: true,
+  output: "export",
+  assetPrefix: "./",
   images: {
-    output: "export",
     unoptimized: true,
-    assetPrefix: "./",
     remotePatterns: [
       {
         protocol: 'https',

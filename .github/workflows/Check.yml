@@ -44,7 +44,7 @@ jobs:
         with:
           node-version: "20"
           cache: 'npm'
-          cache-dependency-path: "/app/front-end"
+          cache-dependency-path: "./app/front-end"
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

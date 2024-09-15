@@ -3,7 +3,6 @@
 const nextConfig = {
   compress: true,
   output: "export",
-  basePath: "/Portfolio", 
   assetPrefix: "./",
   images: {
     unoptimized: true,
